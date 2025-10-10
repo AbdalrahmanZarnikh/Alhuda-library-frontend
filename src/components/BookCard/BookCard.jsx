@@ -1,5 +1,5 @@
-import React from "react";
 import { useNavigate } from "react-router-dom";
+import { FaBookReader } from "react-icons/fa";
 
 const BookCard = ({
   id,
@@ -9,7 +9,6 @@ const BookCard = ({
   quantity,
   number,
   price,
-  images,
   setShow,
   setNewId,
 }) => {
@@ -21,46 +20,50 @@ const BookCard = ({
   };
 
   return (
-    <div className="bg-white shadow-md hover:shadow-lg transition-shadow duration-300 rounded-2xl overflow-hidden w-64 flex flex-col">
-      {/* صورة الكتاب */}
-      <div className="relative w-full h-64 bg-gray-100">
-        <img
-          src={images?.[0]?.url || "/placeholder-book.jpg"}
-          alt={title}
-          className="w-full h-full object-cover"
-        />
+    <div className="bg-white shadow-xl rounded-2xl overflow-hidden transition-all hover:scale-[1.015] duration-300 border border-gray-200 flex flex-col">
+      {/* رأس البطاقة */}
+      <div className="bg-primary text-white px-5 py-3 flex items-center gap-3">
+        <FaBookReader size={24} />
+        <h2 className="text-lg font-bold truncate">{title}</h2>
       </div>
 
-      {/* معلومات الكتاب */}
-      <div className="p-4 flex flex-col flex-grow">
-        <h2 className="text-lg font-semibold text-gray-800 truncate">
-          {title}
-        </h2>
-        <p className="text-sm text-gray-600 mb-1">الكاتب: {author}</p>
-        <p className="text-sm text-gray-600 mb-1">
-          التصنيف: <span className="text-blue-800">{category?.name || "غير محدد"}</span>
-        </p>
-
-        <div className="flex justify-between text-sm text-gray-700 mt-2">
-          <span>الكمية: {quantity}</span>
-          <span>الرقم: {number}</span>
+      {/* التفاصيل */}
+      <div className="p-4 grid grid-cols-2 gap-y-2 text-sm text-gray-700">
+        <div>
+          الكاتب: <span className="text-gray-900 font-medium">{author}</span>
         </div>
+        <div>
+          التصنيف:{" "}
+          <span className="text-purple-700 font-medium">
+            {category?.name || "غير محدد"}
+          </span>
+        </div>
+        <div>
+          الكمية: <span className="font-semibold">{quantity}</span>
+        </div>
+        <div>
+          رقم الرف:
+          {number.map((num) => {
+            return <span className="font-semibold"> {num} <span className="text-green-500 font-bold">|</span> </span>
+          })}
+        </div>
+      </div>
 
-        <p className="text-md font-bold text-green-600 mt-3">
+      {/* السعر والأزرار */}
+      <div className="bg-gray-50 px-4 py-3 flex justify-between items-center border-t">
+        <span className="text-green-600 font-bold text-md">
           السعر: {price} ل.س
-        </p>
-
-        {/* الأزرار */}
-        <div className="flex gap-2 mt-4">
+        </span>
+        <div className="flex gap-2">
           <button
             onClick={() => navigate(`/edit-book/${id}`)}
-            className="flex-1 bg-blue-600 hover:bg-blue-500 text-white py-1.5 rounded-lg text-sm transition-colors cursor-pointer"
+            className="bg-blue-600 hover:bg-blue-500 text-white px-3 py-1 rounded-md text-sm transition cursor-pointer"
           >
             تعديل
           </button>
           <button
             onClick={() => CheckPass(id)}
-            className="flex-1 bg-red-600 hover:bg-red-500 text-white py-1.5 rounded-lg text-sm transition-colors cursor-pointer"
+            className="bg-red-600 hover:bg-red-500 text-white px-3 py-1 rounded-md text-sm transition cursor-pointer"
           >
             حذف
           </button>

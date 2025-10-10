@@ -112,10 +112,10 @@ const Form = () => {
   const form = new FormData();
   const onSubmit = (data) => {
     form.append("title", data.title);
-    form.append("author", +data.author);
-    form.append("number", data.number);
-    form.append("quantity", data.quantity);
-    form.append("price", data.price);
+    form.append("author", data.author);
+    form.append("number", +data.number);
+    form.append("quantity", +data.quantity);
+    form.append("price", +data.price);
 
     if (categories.length > 0) {
       form.append("category", data.category);

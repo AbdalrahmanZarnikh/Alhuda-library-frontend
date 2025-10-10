@@ -27,13 +27,25 @@ function Home() {
     fn();
   }, [dispatch]);
 
-  const filteredData = books?.filter((ele) => ele.category?.name === category);
+  const filteredData = books?.filter((ele) => {
+    if(category !=="الكل"){
+      return (
+        ele.category?.name === category
+      )
+    }
+    else{
+      return ele
+    }
+
+  })
 
   useEffect(() => {
     if (categories?.length > 0) {
-      setCategory(categories[0]?.name);
+      setCategory("الكل");
     }
   }, [categories]);
+
+  console.log(books)
 
   return (
     <>
@@ -64,8 +76,8 @@ function Home() {
           </div>
           {/* End Filter Section */}
 
-          <div>
-            {filteredData.map((book) => {
+          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            {filteredData.length>0? filteredData.map((book) => {
               return (
                 <BookCard
                   id={book._id}
@@ -80,7 +92,10 @@ function Home() {
                   setShow={setShow}
                 />
               );
-            })}
+            })
+              :<h1 className="flex justify-center items-center h-screen font-bold text-2xl">لا يوجد  كتب</h1>
+          }
+
           </div>
         </div>
       )}
