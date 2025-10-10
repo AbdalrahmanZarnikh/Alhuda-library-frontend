@@ -68,7 +68,7 @@ const Form = () => {
       label: "رقم الرف",
       placeholder: "ادخل رقم الرف",
       register: register,
-      required: false,
+      required: true,
       errors: errors,
       nameInDocument: "number",
     },
@@ -85,7 +85,6 @@ const Form = () => {
       nameInDocument: "category",
     },
   ];
-
 
   const isUpdateMode = typeof id === "string";
 
@@ -105,16 +104,9 @@ const Form = () => {
           number: found.number,
           category: found.category?._id || "",
         });
-
-        // const omraFound = omras.find((item) => item._id === found.omra?._id);
-        // if (omraFound && found.roomType) {
-        //   setTotal(omraFound[found.roomType]);
-        // }
       }
     }
   }, [id, isUpdateMode, reset, categories, books]);
-
-
 
   // Function To Handle Submit
   const form = new FormData();
