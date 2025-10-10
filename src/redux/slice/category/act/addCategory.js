@@ -1,10 +1,10 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "../../../../api/configAxios";
 
-const addOmra = createAsyncThunk("omras/add", async (data, thunkAPI) => {
+const addCategory = createAsyncThunk("categories/add", async (data, thunkAPI) => {
   const { rejectWithValue } = thunkAPI;
   try {
-    const res = await axios.post(`/api/omras`, data);
+    const res = await axios.post(`/api/categories`, data);
 
     return res.data.data;
   } catch (error) {
@@ -14,4 +14,4 @@ const addOmra = createAsyncThunk("omras/add", async (data, thunkAPI) => {
   }
 });
 
-export default addOmra;
+export default addCategory;

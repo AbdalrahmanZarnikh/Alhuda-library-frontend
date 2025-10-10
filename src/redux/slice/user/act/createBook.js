@@ -2,12 +2,12 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "../../../../api/configAxios";
 import toast from "react-hot-toast";
 
-const createUser = createAsyncThunk(
-  "user/createUser",
+const createBook = createAsyncThunk(
+  "Book/createBook",
   async (data, thunkAPI) => {
     const { rejectWithValue } = thunkAPI;
     try {
-      const res = await axios.post("/api/users",data);
+      const res = await axios.post("/api/books",data);
      
       toast.success("تم التسجيل بنجاح")
 
@@ -21,4 +21,4 @@ const createUser = createAsyncThunk(
   }
 );
 
-export default createUser;
+export default createBook;

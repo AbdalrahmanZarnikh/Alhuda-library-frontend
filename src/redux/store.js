@@ -1,11 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 
-import userSlice from "./slice/user/userSlice";
-import omraSlice from "./slice/category/omraSlice";
+import bookSlice from "./slice/user/bookSlice";
+import categorySlice from "./slice/category/categorySlice"
 
 export const store = configureStore({
   reducer: {
-    userSlice,
-    omraSlice
+    bookSlice,
+    categorySlice
   },
 });

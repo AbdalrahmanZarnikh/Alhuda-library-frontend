@@ -2,97 +2,97 @@ import { createSlice } from "@reduxjs/toolkit";
 
 // Thunks
 
-import createUser from "./act/createUser";
-import getUsers from "./act/getUsers";
-import deleteUser from "./act/deleteUser";
-import updateUser from "./act/updateUser";
-import getUsersBySearch from "./act/getUsersBySearch";
+import createBook from "./act/createBook";
+import getBooks from "./act/getBooks";
+import deleteBook from "./act/deleteBook";
+import updateBook from "./act/updateBook";
+import getBookBySearch from "./act/getBookBySearch";
 
 import toast from "react-hot-toast";
 
 // State
 const initialState = {
-  data: [],
+  books: [],
   isLoading: "Idle",
   error: null,
 };
 
 // Slice
-const userSlice = createSlice({
-  name: "user",
+const bookSlice = createSlice({
+  name: "Book",
   reducers: {},
   initialState,
   extraReducers: (builder) => {
-    builder.addCase(createUser.pending, (state) => {
+    builder.addCase(createBook.pending, (state) => {
       state.isLoading = "Pending";
       state.error = null;
     });
-    builder.addCase(createUser.fulfilled, (state, action) => {
+    builder.addCase(createBook.fulfilled, (state, action) => {
       state.isLoading = "Success";
       state.error = null;
-      state.data = [...state.data, action.payload];
+      state.books = [...state.books, action.payload];
     });
 
-    builder.addCase(createUser.rejected, (state, action) => {
+    builder.addCase(createBook.rejected, (state, action) => {
       state.isLoading = "Fail";
       state.error = action.payload;
       // toast.error(state.error || "Network Error");
     });
-    builder.addCase(getUsers.pending, (state) => {
+    builder.addCase(getBooks.pending, (state) => {
       state.isLoading = "Pending";
       state.error = null;
     });
-    builder.addCase(getUsers.fulfilled, (state, action) => {
+    builder.addCase(getBooks.fulfilled, (state, action) => {
       state.isLoading = "Success";
       state.error = null;
-      state.data = action.payload;
+      state.books = action.payload;
     });
-    builder.addCase(getUsers.rejected, (state, action) => {
+    builder.addCase(getBooks.rejected, (state, action) => {
       state.isLoading = "Fail";
       state.error = action.payload;
       toast.error(state.error || "Network Error");
     });
-    builder.addCase(getUsersBySearch.pending, (state) => {
+    builder.addCase(getBookBySearch.pending, (state) => {
       state.isLoading = "Pending";
       state.error = null;
     });
-    builder.addCase(getUsersBySearch.fulfilled, (state, action) => {
+    builder.addCase(getBookBySearch.fulfilled, (state, action) => {
       state.isLoading = "Success";
       state.error = null;
-      state.data = action.payload;
+      state.books = action.payload;
     });
-    builder.addCase(getUsersBySearch.rejected, (state, action) => {
+    builder.addCase(getBookBySearch.rejected, (state, action) => {
       state.isLoading = "Fail";
       state.error = action.payload;
       toast.error(state.error || "Network Error");
     });
-    builder.addCase(updateUser.pending, (state) => {
+    builder.addCase(updateBook.pending, (state) => {
       state.isLoading = "Pending";
       state.error = null;
     });
-    builder.addCase(updateUser.fulfilled, (state, action) => {
+    builder.addCase(updateBook.fulfilled, (state, action) => {
       state.isLoading = "Success";
       state.error = null;
-      state.data = state.data.map((item) =>
+      state.books = state.books.map((item) =>
         item._id === action.payload._id ? action.payload : item
       );
     });
 
-    builder.addCase(updateUser.rejected, (state, action) => {
+    builder.addCase(updateBook.rejected, (state, action) => {
       state.isLoading = "Fail";
       state.error = action.payload;
       toast.error(state.error || "Network Error");
     });
-    builder.addCase(deleteUser.pending, (state) => {
+    builder.addCase(deleteBook.pending, (state) => {
       state.isLoading = "Pending";
       state.error = null;
     });
-    builder.addCase(deleteUser.fulfilled, (state, action) => {
+    builder.addCase(deleteBook.fulfilled, (state, action) => {
       state.isLoading = "Success";
       state.error = null;
-      state.data = state.data.filter((item) => item._id !== action.payload);
+      state.books = state.books.filter((item) => item._id !== action.payload);
     });
-    builder.addCase(deleteUser.rejected, (state, action) => {
+    builder.addCase(deleteBook.rejected, (state, action) => {
       state.isLoading = "Fail";
       state.error = action.payload;
       toast.error(state.error || "Network Error");
@@ -100,6 +100,6 @@ const userSlice = createSlice({
   },
 });
 
-export default userSlice.reducer;
+export default bookSlice.reducer;
 
-export { createUser, deleteUser, updateUser, getUsers };
+export { createBook, deleteBook, updateBook, getBooks,getBookBySearch };

@@ -6,12 +6,12 @@ const PopUp = ({ msg, id, thunk, showVar,onClose }) => {
 
   const dispatch=useDispatch()
   const [pass, setPass] = useState("");
-  const {data}=useSelector((state)=>state.userSlice)
+  const {books}=useSelector((state)=>state.bookSlice)
 
 
 
   const handleDelete = async () => {
-    const found = data.find((item) => item._id === id);
+    const found = books.find((item) => item._id === id);
     if (pass == "3415") {
       await dispatch(thunk(id));
       if(found){

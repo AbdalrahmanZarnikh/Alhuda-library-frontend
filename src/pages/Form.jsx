@@ -1,12 +1,11 @@
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { getOmras } from "../redux/slice/category/omraSlice";
-import { createUser, updateUser } from "../redux/slice/user/userSlice";
 import ButtonReverse from "../components/ButtonReverse/ButtonReverse";
 import FormLayout from "../components/FormLayout/FormLayout";
-import { useEffect, useState } from "react";
-import { typeRoom, typeSafar, rooms } from "../constants/data";
+import { useEffect } from "react";
+import { createBook, updateBook } from "../redux/slice/user/bookSlice";
+import { getCategories } from "../redux/slice/category/categorySlice";
 
 const Form = () => {
   const dispatch = useDispatch();
@@ -24,117 +23,87 @@ const Form = () => {
     defaultValues: {},
   });
 
-  const { data, isLoading } = useSelector((state) => state.userSlice);
-  const { omras } = useSelector((state) => state.omraSlice);
+  const { books, isLoading } = useSelector((state) => state.bookSlice);
+  const { categories } = useSelector((state) => state.categorySlice);
 
   const contentFormFilds = [
     {
       type: "text",
-      label: "الاسم",
-      placeholder: "ادخل اسم",
+      label: "عنوان الكتاب",
+      placeholder: "ادخل عنوان",
       register: register,
       required: true,
       errors: errors,
-      nameInDocument: "name",
+      nameInDocument: "title",
     },
     {
       type: "text",
-      label: "رقم الجوّال",
-      placeholder: "ادخل رقم الجوّال",
+      label: "اسم الكاتب",
+      placeholder: "ادخل اسم الكاتب ",
       register: register,
       required: false,
       errors: errors,
-      nameInDocument: "phone",
+      nameInDocument: "author",
     },
     {
       type: "number",
-      label: "المبلغ",
-      placeholder: "ادخل المبلغ المدفوع",
+      label: "الكمية",
+      placeholder: "ادخل الكمية",
       register: register,
       required: false,
       errors: errors,
-      nameInDocument: "paidAmount",
+      nameInDocument: "quantity",
     },
     {
-      type: "text",
-      label: "ملاحظات",
-      placeholder: "ادخل  ملاحظاتك",
+      type: "number",
+      label: "السعر",
+      placeholder: "ادخل السعر",
       register: register,
       required: false,
       errors: errors,
-      nameInDocument: "details",
+      nameInDocument: "price",
+    },
+    {
+      type: "number",
+      label: "رقم الرف",
+      placeholder: "ادخل رقم الرف",
+      register: register,
+      required: false,
+      errors: errors,
+      nameInDocument: "number",
     },
   ];
 
   const contentFormFieldsSelector = [
     {
-      data: omras,
-      label: "العمرة",
+      data: categories,
+      label: "الصنف",
       register: register,
       required: true,
-      option: "اختر شهر العمرة",
+      option: "اختر  الصنف",
       errors: errors,
-      nameInDocument: "omra",
-    },
-    {
-      data: rooms,
-      label: "رقم الغرفة",
-      register: register,
-      required: false,
-      option: "اختر رقم الغرفة",
-      errors: errors,
-      nameInDocument: "room",
-    },
-    {
-      data: typeSafar,
-      label: "السفر",
-      register: register,
-      required: false,
-      option: "اختر طريقة السفر",
-      errors: errors,
-      nameInDocument: "safar",
-    },
-    {
-      data: typeRoom,
-      label: "نوع الغرفة",
-      register: register,
-      required: false,
-      option: "اختر نوع الغرفة",
-      errors: errors,
-      nameInDocument: "roomType",
+      nameInDocument: "category",
     },
   ];
-  const contentFormFieldsCheckBox = [
-    {
-      labelOne: "تسليم الجواز",
-      labelTwo: "هل تم تسليم الجواز ؟",
-      register: register,
-      nameInDocument: "taslim",
-      errors: errors,
-    },
-  ];
+
 
   const isUpdateMode = typeof id === "string";
 
   useEffect(() => {
-    dispatch(getOmras());
+    dispatch(getCategories());
   }, []);
 
   useEffect(() => {
-    if (isUpdateMode && data.length > 0) {
-      const found = data.find((item) => item._id === id);
+    if (isUpdateMode && books.length > 0) {
+      const found = books.find((item) => item._id === id);
       if (found) {
         reset({
-          name: found.name,
-          phone: found.phone,
-          paidAmount: found.paidAmount,
-          taslim: found.taslim,
-          totalAmount: found.totalAmount,
-          details: found.details,
-          room: found.room,
-          roomType: found.roomType,
-          omra: found.omra?._id || "",
-          safar: found.safar,
+          title: found.title,
+          author: found.author,
+          quantity: found.quantity,
+          price: found.price,
+          number: found.number,
+          category: found.category?._id || "",
         });
 
         // const omraFound = omras.find((item) => item._id === found.omra?._id);
@@ -143,44 +112,26 @@ const Form = () => {
         // }
       }
     }
-  }, [id, isUpdateMode, reset, omras, data]);
+  }, [id, isUpdateMode, reset, categories, books]);
 
-  useEffect(() => {
-    const subscription = watch((value) => {
-      const foundOmra = omras.find((item) => item._id === value.omra);
-      if (foundOmra && value.roomType) {
-        setTotal(foundOmra[value.roomType]);
-      } else {
-        setTotal(0);
-      }
-    });
 
-    return () => subscription.unsubscribe();
-  }, [watch, omras]);
-
-  const [total, setTotal] = useState(0);
 
   // Function To Handle Submit
   const form = new FormData();
   const onSubmit = (data) => {
-    form.append("name", data.name);
-    form.append("paidAmount", +data.paidAmount);
-    form.append("phone", data.phone);
-    form.append("details", data.details);
-    form.append("taslim", data.taslim);
-    form.append("safar", data.safar);
-    form.append("room", data.room);
-    form.append("roomType", data.roomType);
+    form.append("title", data.title);
+    form.append("author", +data.author);
+    form.append("number", data.number);
+    form.append("quantity", data.quantity);
+    form.append("price", data.price);
 
-    if (omras.length > 0) {
-      form.append("omra", data.omra);
-      const found = omras.find((item) => item._id === data.omra);
-      form.append("totalAmount", found[data.roomType]);
+    if (categories.length > 0) {
+      form.append("category", data.category);
     }
 
     const action = isUpdateMode
-      ? updateUser({ id: id, data: form })
-      : createUser(form);
+      ? updateBook({ id: id, data: form })
+      : createBook(form);
 
     dispatch(action).then(() => {
       navigate("/");
@@ -191,16 +142,14 @@ const Form = () => {
       <ButtonReverse text={"رجوع"} />
 
       <FormLayout
-        data={data}
+        data={books}
         id={id}
         isLoading={isLoading}
         Submit={handleSubmit(onSubmit)}
         contentFormFilds={contentFormFilds}
-        contentFormFieldsCheckBox={contentFormFieldsCheckBox}
         contentFormFieldsSelector={contentFormFieldsSelector}
         multipleImages={true}
         form={form}
-        total={total}
       />
     </div>
   );

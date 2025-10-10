@@ -2,19 +2,19 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "../../../../api/configAxios";
 import toast from "react-hot-toast";
 
-const getUsersBySearch = createAsyncThunk(
-  "user/getUsersBySearch",
-  async (search, thunkAPI) => {
+const updateBook = createAsyncThunk(
+  "Book/updateBook",
+  async (info, thunkAPI) => {
     const { rejectWithValue } = thunkAPI;
     try {
-      const res = await axios.get(
-        `/api/users?keyword=${search}`
+      const res = await axios.put(
+        `/api/books/${info.id}`,
+        info.data
       );
 
+      toast.success("تمت العملية بنجاح");
 
-
-
-       return res.data.data;
+      return res.data.data;
     } catch (error) {
       toast.error(error.response.data.message);
       if (axios.isAxiosError(error)) {
@@ -24,4 +24,4 @@ const getUsersBySearch = createAsyncThunk(
   }
 );
 
-export default getUsersBySearch;
+export default updateBook;

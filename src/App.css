@@ -4,7 +4,9 @@
   font-family: "Marhey", sans-serif;
 }
 
-
+@theme {
+  --color-primary: #ff8d4c;
+}
 
 @media print {
   body * {

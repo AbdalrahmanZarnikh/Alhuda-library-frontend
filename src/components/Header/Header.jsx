@@ -1,105 +1,189 @@
 import { useEffect, useRef, useState } from "react";
-import { BiSearch } from "react-icons/bi";
+import { BiSearch, BiMenu, BiX } from "react-icons/bi";
 import { useDispatch } from "react-redux";
-import { Link, useNavigate, NavLink } from "react-router-dom";
-import getUsersBySearch from "../../redux/slice/user/act/getUsersBySearch";
-import { getUsers } from "../../redux/slice/user/userSlice";
+import { NavLink, useNavigate } from "react-router-dom";
+import {getBookBySearch, getBooks} from "../../redux/slice/user/bookSlice";
 
 const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = window.location;
   const [searchTerm, setSearchTerm] = useState("");
-  const input=useRef(null)
+  const [menuOpen, setMenuOpen] = useState(false);
+  const input = useRef(null);
 
   useEffect(() => {
     const delayDebounce = setTimeout(() => {
       const trimmed = searchTerm.trim();
       if (trimmed !== "") {
-        dispatch(getUsersBySearch(searchTerm));
+        dispatch(getBookBySearch(searchTerm));
       } else if (trimmed === "" && location.pathname === "/") {
-        dispatch(getUsers());
+        dispatch(getBooks());
       }
     }, 500);
-
     return () => clearTimeout(delayDebounce);
   }, [searchTerm, dispatch, navigate]);
 
-  const handleSearch = (e) => {
-    setSearchTerm(e.target.value);
-  };
+  const handleSearch = (e) => setSearchTerm(e.target.value);
 
   return (
-    <div className="flex justify-between items-center bg-[#FF8D4C]/90 p-5 ">
-      <div className="flex justify-center items-center   ">
-        <img src="image.png" className="w-25 h-25" alt="" />
+    <header className="bg-primary/90 p-3 md:p-5 flex flex-wrap justify-between items-center gap-3 relative">
+      {/* الشعار */}
+      <div className="flex items-center gap-2">
+        <img src="image.png" alt="logo" className="w-12 h-12 md:w-16 md:h-16" />
+        <h1 className="text-white font-bold text-lg md:text-2xl hidden sm:block">
+          نظام الكتب
+        </h1>
       </div>
-      <div className="hidden md:flex justify-center gap-4 text-lg font-bold">
+
+      {/* زر القائمة للموبايل */}
+      <button
+        className="text-white text-3xl md:hidden cursor-pointer"
+        onClick={() => setMenuOpen(!menuOpen)}
+      >
+        {menuOpen ? <BiX /> : <BiMenu />}
+      </button>
+
+      {/* روابط التنقل (للحاسوب) */}
+      <nav className="hidden md:flex gap-4 text-lg font-bold">
         <NavLink
           to="/"
           className={({ isActive }) =>
-            `rounded-lg p-4 cursor-pointer ${
+            `rounded-lg p-3 ${
               isActive
                 ? "bg-black text-white"
                 : "bg-white hover:bg-white/50 hover:text-white"
             }`
           }
         >
-          قائمة المعتمرين
+         الكتب
         </NavLink>
-
         <NavLink
-          to="/add-user"
+          to="/add-book"
           className={({ isActive }) =>
-            `rounded-lg p-4 cursor-pointer ${
+            `rounded-lg p-3 ${
               isActive
                 ? "bg-black text-white"
                 : "bg-white hover:bg-white/50 hover:text-white"
             }`
           }
         >
-          تسجيل معتمرين
+           إضافة كتاب
         </NavLink>
-
         <NavLink
-          to="/add-omra"
+          to="/add-category"
           className={({ isActive }) =>
-            `rounded-lg p-4 cursor-pointer ${
+            `rounded-lg p-3 ${
               isActive
                 ? "bg-black text-white"
                 : "bg-white hover:bg-white/50 hover:text-white"
             }`
           }
         >
-          إنشاء عمرة جديدة
+         الأصناف
         </NavLink>
-      </div>
-      <div className="relative w-1/2 ">
+      </nav>
+
+      {/* شريط البحث */}
+      <div className="relative w-full md:w-1/3">
         <input
           type="text"
           ref={input}
-          placeholder="ابحث عن معتمر"
-          className="p-4 w-full rounded-lg border border-gray-300 bg-white text-[10px] md:text-lg text-center"
-          onChange={(e) => {
-            handleSearch(e);
-          }}
+          placeholder="ابحث عن كتاب"
+          className="p-3 w-full rounded-lg border border-gray-300 bg-white text-sm md:text-lg text-center"
+          onChange={handleSearch}
         />
-        <span className={`absolute right-2 top-2  md:top-5   ${!searchTerm.length>0 && "hidden"} bg-gray-300 text-red-500 w-2 h-2 md:w-5 md:h-5  p-4 rounded-full text-center flex justify-center items-center  cursor-pointer hover:bg-gray-200`} onClick={()=>{
-           input.current.value=""
-           setSearchTerm("")
-        }} >X</span>
+        {searchTerm.length > 0 && (
+          <span
+            onClick={() => {
+              input.current.value = "";
+              setSearchTerm("");
+            }}
+            className="absolute right-3 top-2 md:top-3 bg-gray-300 text-red-500 w-6 h-6 md:w-7 md:h-7 flex justify-center items-center rounded-full cursor-pointer"
+          >
+            X
+          </span>
+        )}
         <BiSearch
-          className="absolute left-2 top-4 md:top-5  text-gray-500 "
+          className="absolute left-3 top-2.5 md:top-3 text-gray-500"
           size={21}
         />
       </div>
-      <Link
-        to={"/add-user"}
-        className="md:hidden bg-white rounded-lg p-4 text-centerة m-2 hover:bg-white/50 hover:text-white cursor-pointer text-sm font-bold"
-      >
-         تسجيل
-      </Link>
-    </div>
+
+      {/* روابط صغيرة على اليمين */}
+      {/* <div className="hidden md:flex gap-3 items-center">
+        <NavLink
+          to="/pdf"
+          className={({ isActive }) =>
+            `rounded-lg p-3 font-bold ${
+              isActive
+                ? "bg-black text-white"
+                : "bg-white hover:bg-white/50 hover:text-white"
+            }`
+          }
+        >
+          جوازات السفر
+        </NavLink>
+      </div> */}
+
+      {/* قائمة الموبايل المنسدلة */}
+      {menuOpen && (
+        <div className="absolute top-full left-0 w-full bg-primary/70 shadow-md flex flex-col items-center text-center py-3 px-4 space-y-2 md:hidden z-50 ">
+          <NavLink
+            to="/"
+            className={({ isActive }) =>
+              `rounded-lg p-3 w-full ${
+                isActive
+                  ? "bg-black text-white"
+                  : "bg-white hover:bg-white/50 hover:text-white"
+              }`
+            }
+            onClick={() => setMenuOpen(false)}
+          >
+          الكتب
+          </NavLink>
+          <NavLink
+            to="/add-book"
+            className={({ isActive }) =>
+              `rounded-lg p-3 w-full ${
+                isActive
+                  ? "bg-black text-white"
+                  : "bg-white hover:bg-white/50 hover:text-white"
+              }`
+            }
+            onClick={() => setMenuOpen(false)}
+          >
+            إضافة كتاب
+          </NavLink>
+          <NavLink
+            to="/add-category"
+            className={({ isActive }) => 
+              `rounded-lg p-3 w-full ${
+                isActive
+                  ? "bg-black text-white"
+                  : "bg-white hover:bg-white/50 hover:text-white"
+              }`
+            }
+            onClick={() => setMenuOpen(false)}
+          >
+            الأصناف
+          </NavLink>
+          {/* <NavLink
+            to="/pdf"
+            className={({ isActive }) =>
+              `rounded-lg p-3 w-full ${
+                isActive
+                  ? "bg-black text-white"
+                  : "bg-white hover:bg-white/50 hover:text-white"
+              }`
+            }
+            onClick={() => setMenuOpen(false)}
+          >
+            جوازات السفر
+          </NavLink> */}
+        </div>
+      )}
+    </header>
   );
 };
 

@@ -1,13 +1,13 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "../../../../api/configAxios";
 
-const deleteOmra = createAsyncThunk(
-    "omras/delete",
+const deleteCategory = createAsyncThunk(
+    "categories/delete",
     async (id, thunkAPI) => {
       const { rejectWithValue } = thunkAPI;
       try {
         const res = await axios.delete(
-          `/api/omras/${id}`
+          `/api/categories/${id}`
         );
         return id;
       } catch (error) {
@@ -20,4 +20,4 @@ const deleteOmra = createAsyncThunk(
 
   
 
-  export default deleteOmra
+  export default deleteCategory

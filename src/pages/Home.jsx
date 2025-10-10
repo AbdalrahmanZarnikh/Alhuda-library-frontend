@@ -3,79 +3,37 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import PopUp from "../components/PopUp/PopUp";
 import FilterTable from "../components/FilterTable/FilterTable";
-import Table from "../components/Table/Table";
-import { deleteUser, getUsers } from "../redux/slice/user/userSlice";
-import { getOmras } from "../redux/slice/category/omraSlice";
 import loading from "../utils/loading.json";
+import { deleteBook, getBooks } from "../redux/slice/user/bookSlice";
+import { getCategories } from "../redux/slice/category/categorySlice";
+import BookCard from "../components/BookCard/BookCard";
 
 function Home() {
   const dispatch = useDispatch();
 
-  const { isLoading } = useSelector((state) => state.userSlice);
-  const { omras } = useSelector((state) => state.omraSlice);
-  const [omra, setOmra] = useState("");
-  const [Filter, setFilter] = useState("الكل");
+  const { isLoading, books } = useSelector((state) => state.bookSlice);
+  const { categories } = useSelector((state) => state.categorySlice);
+  const [category, setCategory] = useState("");
   const [show, setShow] = useState(false);
   const [newId, setNewId] = useState("");
 
+
+
   useEffect(() => {
     const fn = async () => {
-      await dispatch(getUsers());
-      await dispatch(getOmras());
+      await dispatch(getBooks());
+      await dispatch(getCategories());
     };
     fn();
   }, [dispatch]);
 
+  const filteredData = books?.filter((ele) => ele.category?.name === category);
+
   useEffect(() => {
-    if (omras?.length > 0) {
-      setOmra(omras[0]?.name);
+    if (categories?.length > 0) {
+      setCategory(categories[0]?.name);
     }
-  }, [omras]);
-
-  const [checked, setChecked] = useState({
-    الاسم: true,
-    "رقم الجوال": true,
-    المبلغ: true,
-    الغرفة: true,
-    ملاحظات: true,
-    "حالة الجواز": false,
-    السفر: true,
-    "نوع الغرفة": true,
-    "التكلفة الإجمالية": false,
-    الصور: false,
-  });
-
-  const headTable = [
-    "الاسم",
-    "رقم الجوال",
-    "المبلغ المدفوع",
-    "المبلغ المتبقي",
-    "الغرفة",
-    "ملاحظات",
-    "حالة الجواز",
-    "السفر",
-    "نوع الغرفة",
-    "التكلفة الإجمالية",
-    "الصور",
-  ];
-
-  const keywords = [
-    "الكل",
-    "براً",
-    "جواً",
-    "غرفة 1",
-    "غرفة 2",
-    "غرفة 3",
-    "غرفة 4",
-    "غرفة 5",
-    "غرفة 6",
-    "غرفة 7",
-    "غرفة 8",
-    "غرفة 9",
-    "غرفة 10",
-    "غرفة 11",
-    "غرفة 12",
-  ];
+  }, [categories]);
 
   return (
     <>
@@ -88,7 +46,7 @@ function Home() {
           <PopUp
             msg={"هل أنت متأكد من الحذف ؟"}
             id={newId}
-            thunk={deleteUser}
+            thunk={deleteBook}
             showVar={show}
             onClose={() => {
               setShow(false);
@@ -98,50 +56,32 @@ function Home() {
           {/*Start Filter Section */}
 
           <div className="flex justify-between">
-            <FilterTable data={omras} setFunction={setOmra} value={omra} />
-
             <FilterTable
-              data={keywords}
-              setFunction={setFilter}
-              value={Filter}
+              data={categories}
+              setFunction={setCategory}
+              value={category}
             />
           </div>
           {/* End Filter Section */}
 
-          {/* Start Head Section  */}
-
-          <h1 className="flex justify-center mb-10 text-2xl md:text-4xl mt-5 ">
-            عمرة
-            <span className="mx-2  text-[#FF8D4C]/90 font-bold">{omra}</span>
-          </h1>
-          {/* End Head Section  */}
-
-          {/* Save Or Print Table */}
-
-            <h1
-              className="mb-4 bg-[#FF8D4C]/90 w-fit p-2 rounded-lg text-white cursor-pointer hover:bg-[#FF8D4C]/50"
-              onClick={() => window.print()}
-            >
-              حفظ القائمة كملف PDF
-            </h1>
-
-       
-
-          {/* Save Or Print Table */}
-
-          {/* Start Table */}
-
-          <Table
-            Filter={Filter}
-            headTable={headTable}
-            checked={checked}
-            setChecked={setChecked}
-            setShow={setShow}
-            setNewId={setNewId}
-            omra={omra}
-          />
-
-          {/* End Table */}
+          <div>
+            {filteredData.map((book) => {
+              return (
+                <BookCard
+                  id={book._id}
+                  title={book.title}
+                  author={book.author}
+                  price={book.price}
+                  quantity={book.quantity}
+                  number={book.number}
+                  category={book?.category}
+                  images={book?.images}
+                  setNewId={setNewId}
+                  setShow={setShow}
+                />
+              );
+            })}
+          </div>
         </div>
       )}
     </>

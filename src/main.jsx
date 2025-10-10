@@ -6,7 +6,7 @@ import "./App.css";
 import { store } from "./redux/store.js";
 import Home from "./pages/Home.jsx";
 import Form from "./pages/Form.jsx";
-import FormOmra from "./pages/FormOmra.jsx";
+import FormCategory from "./pages/FormCategory.jsx";
 import { Toaster } from "react-hot-toast";
 
 createRoot(document.getElementById("root")).render(
@@ -15,11 +15,11 @@ createRoot(document.getElementById("root")).render(
       <Toaster />
       <Header />
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/add-user" element={<Form />} />
-        <Route path="/add-omra" element={<FormOmra />} />
-        <Route path="/edit-user/:id" element={<Form />} />
-        <Route path="/edit-omra/:id" element={<FormOmra />} />
+         <Route path="/" element={<Home />} />
+         <Route path="/add-book" element={<Form />} />
+        <Route path="/edit-book/:id" element={<Form />} />  
+        <Route path="/add-category" element={<FormCategory />} />
+        <Route path="/edit-category/:id" element={<FormCategory />} />
       </Routes>
     </Provider>
   </BrowserRouter>
