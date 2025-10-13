@@ -64,7 +64,7 @@ const Form = () => {
       nameInDocument: "price",
     },
     {
-      type: "number",
+      type: "text",
       label: "رقم الرف",
       placeholder: "ادخل رقم الرف",
       register: register,
@@ -113,7 +113,7 @@ const Form = () => {
   const onSubmit = (data) => {
     form.append("title", data.title);
     form.append("author", data.author);
-    form.append("number", +data.number);
+    form.append("number", data.number);
     form.append("quantity", +data.quantity);
     form.append("price", +data.price);
 
@@ -128,6 +128,7 @@ const Form = () => {
     dispatch(action).then(() => {
       navigate("/");
     });
+
   };
   return (
     <div className="p-10">

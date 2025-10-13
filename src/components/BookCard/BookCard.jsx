@@ -19,6 +19,10 @@ const BookCard = ({
     setNewId(id);
   };
 
+  const stringNumberToArray = number?.split(",");
+
+  console.log(stringNumberToArray);
+
   return (
     <div className="bg-white shadow-xl rounded-2xl overflow-hidden transition-all hover:scale-[1.015] duration-300 border border-gray-200 flex flex-col">
       {/* رأس البطاقة */}
@@ -43,8 +47,13 @@ const BookCard = ({
         </div>
         <div>
           رقم الرف:
-          {number.map((num) => {
-            return <span className="font-semibold"> {num} <span className="text-green-500 font-bold">|</span> </span>
+          {stringNumberToArray?.map((ele) => {
+            return (
+              <span className="font-semibold">
+                {" "}
+                {ele} <span className="text-green-500 font-bold">|</span>{" "}
+              </span>
+            );
           })}
         </div>
       </div>
