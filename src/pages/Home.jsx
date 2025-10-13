@@ -54,7 +54,7 @@ function Home() {
           <Lottie animationData={loading} className="w-10" />
         </div>
       ) : (
-        <div className="p-5 overflow-x-auto">
+        <div className="p-5 overflow-x-auto bg-secondary h-screen">
           <PopUp
             msg={"هل أنت متأكد من الحذف ؟"}
             id={newId}
