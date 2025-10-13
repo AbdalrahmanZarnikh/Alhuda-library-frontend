@@ -45,13 +45,13 @@ const PopUp = ({ msg, id, thunk, showVar,onClose }) => {
             </div>
             <div className="flex  gap-2">
               <button
-                className="submit-button m-auto mt-5 cursor-pointer "
+                className="submit-button m-auto mt-5 cursor-pointer bg-primary"
                 onClick={handleDelete}
               >
                 إدخال
               </button>
               <button
-                className="submit-button m-auto mt-5  cursor-pointer "
+                className="submit-button m-auto mt-5  cursor-pointer bg-primary "
                 onClick={() => {
                   onClose();
                 }}
