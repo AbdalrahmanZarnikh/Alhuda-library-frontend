@@ -111,9 +111,12 @@ const Form = () => {
   // Function To Handle Submit
   const form = new FormData();
   const onSubmit = (data) => {
+    const numberWithoutRepetition = [...new Set(data.number.split(","))].join();
+
+
     form.append("title", data.title);
     form.append("author", data.author);
-    form.append("number", data.number);
+    form.append("number", numberWithoutRepetition);
     form.append("quantity", +data.quantity);
     form.append("price", +data.price);
 
@@ -128,7 +131,6 @@ const Form = () => {
     dispatch(action).then(() => {
       navigate("/");
     });
-
   };
   return (
     <div className="p-10">
