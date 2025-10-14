@@ -21,8 +21,11 @@ const BookCard = ({
 
   return (
     <div
-      className="relative rounded-2xl shadow-lg overflow-hidden w-full hover:scale-105 transition-transform cursor-pointer bg-amber-950"
+      className="relative rounded-2xl shadow-lg overflow-hidden w-full hover:scale-105 transition-transform cursor-pointer bg-primary"
+
     >
+      {/* طبقة شفافة فوق الخلفية */}
+      <div className="absolute inset-0 bg-black/40 z-0"></div>
 
       {/* المحتوى داخل طبقة فوقية */}
       <div className="relative z-10">
