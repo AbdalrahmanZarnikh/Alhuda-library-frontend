@@ -51,7 +51,7 @@ const Header = () => {
       </button>
 
       {/* روابط التنقل (للحاسوب) */}
-      <nav className="hidden md:flex gap-4 text-lg font-bold">
+      <nav className={`hidden md:flex ${location.pathname!=="/" && "md:m-auto"}  gap-4 text-lg font-bold`}>
         <NavLink
           to="/"
           className={({ isActive }) =>
