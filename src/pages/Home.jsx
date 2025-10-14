@@ -70,18 +70,14 @@ function Home() {
             />
           </div>
 
-          {trim === "" && (
-            <Pagination
-              currentPage={paginationBooks?.currentPage}
-              next={paginationBooks?.next}
-              prev={paginationBooks?.prev}
-              getThunk={getBooks}
-            />
-          )}
           {/* End Filter Section */}
-
-          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            {filteredData.length > 0 ? (
+          {trim.length > 0 && filteredData.length == 0 && (
+            <div className="flex justify-center items-center font-bold text-2xl w-full h-full bg-secondary overflow-hidden">
+              الكتاب غير موجود
+            </div>
+          )}
+          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 w-full">
+            {filteredData.length > 0 &&
               filteredData.map((book) => {
                 return (
                   <BookCard
@@ -97,13 +93,17 @@ function Home() {
                     setShow={setShow}
                   />
                 );
-              })
-            ) : (
-              <h1 className="flex justify-center items-center h-screen font-bold text-2xl">
-                لا يوجد كتب
-              </h1>
-            )}
+              })}
           </div>
+
+          {trim === "" && filteredData.length > 0 && (
+            <Pagination
+              currentPage={paginationBooks?.currentPage}
+              next={paginationBooks?.next}
+              prev={paginationBooks?.prev}
+              getThunk={getBooks}
+            />
+          )}
         </div>
       )}
     </>

@@ -15,7 +15,7 @@ const Pagination = ({ currentPage, next, prev, getThunk }) => {
   };
 
   return (
-    <div className="flex justify-center items-center gap-10 md:gap-30 mb-20">
+    <div className="flex justify-center items-center gap-10 md:gap-30 mt-20">
       <button
         className={` text-white  p-4 cursor-pointer rounded-lg ${
           next ? "bg-primary hover:bg-primary/20" : "bg-gray-500 "
