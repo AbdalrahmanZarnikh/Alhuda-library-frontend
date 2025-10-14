@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 const getBooks = createAsyncThunk("Book/getBooks", async (page, thunkAPI) => {
   const { rejectWithValue } = thunkAPI;
   try {
-    const res = await axios.get(`/api/books?page=${page}&limit=4`);
+    const res = await axios.get(`/api/books?page=${page}&limit=8`);
 
     return res.data;
   } catch (error) {
