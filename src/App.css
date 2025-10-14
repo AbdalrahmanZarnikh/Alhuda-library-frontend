@@ -5,7 +5,8 @@
 }
 
 @theme {
-  --color-primary: #344e41;
+  /* --color-primary: #344e41; */
+  --color-primary:rgb(142, 55, 55);
   --color-secondary: #f5f2eb;
 }
 

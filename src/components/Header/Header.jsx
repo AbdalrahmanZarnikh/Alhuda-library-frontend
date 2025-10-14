@@ -87,7 +87,7 @@ const Header = () => {
       </nav>
 
       {/* شريط البحث */}
-      <div className="relative w-full md:w-1/3">
+      <div className={`${location.pathname!=="/" && "hidden"} relative w-full md:w-1/3`}>
         <input
           type="text"
           ref={input}
@@ -107,7 +107,7 @@ const Header = () => {
           </span>
         )}
         <BiSearch
-          className="absolute left-3 top-2.5 md:top-3 text-gray-500"
+          className="absolute left-3 top-3 md:top-4 text-gray-500"
           size={21}
         />
       </div>

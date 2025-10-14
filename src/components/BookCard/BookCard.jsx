@@ -25,7 +25,7 @@ const BookCard = ({
       <div className="flex flex-col items-center p-5 text-white">
         <FaBook size={36} className="mb-2" />
         <h2 className="font-bold text-lg text-center truncate">{title}</h2>
-        <p className="text-sm mt-1">{author}</p>
+        <p className="text-sm mt-1">{author || "---"}</p>
       </div>
 
       {/* تفاصيل الكتاب */}
