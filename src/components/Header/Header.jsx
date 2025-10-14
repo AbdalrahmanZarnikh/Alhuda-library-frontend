@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { BiSearch, BiMenu, BiX } from "react-icons/bi";
 import { useDispatch } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
-import {getBookBySearch, getBooks} from "../../redux/slice/user/bookSlice";
+import {getBookBySearch, getBooks, setTrim} from "../../redux/slice/user/bookSlice";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -16,8 +16,10 @@ const Header = () => {
     const delayDebounce = setTimeout(() => {
       const trimmed = searchTerm.trim();
       if (trimmed !== "") {
+        dispatch(setTrim(trimmed))
         dispatch(getBookBySearch(searchTerm));
       } else if (trimmed === "" && location.pathname === "/") {
+        dispatch(setTrim(""))
         dispatch(getBooks());
       }
     }, 500);

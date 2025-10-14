@@ -13,14 +13,20 @@ import toast from "react-hot-toast";
 // State
 const initialState = {
   books: [],
+  trim:"",
   isLoading: "Idle",
+  paginationBooks:null,
   error: null,
 };
 
 // Slice
 const bookSlice = createSlice({
   name: "Book",
-  reducers: {},
+  reducers: {
+    setTrim:(state,action)=>{
+       state.trim=action.payload
+    }
+  },
   initialState,
   extraReducers: (builder) => {
     builder.addCase(createBook.pending, (state) => {
@@ -45,11 +51,12 @@ const bookSlice = createSlice({
     builder.addCase(getBooks.fulfilled, (state, action) => {
       state.isLoading = "Success";
       state.error = null;
-      state.books = action.payload;
+      state.books = action.payload.data;
+      state.paginationBooks=action.payload.pagination
     });
     builder.addCase(getBooks.rejected, (state, action) => {
       state.isLoading = "Fail";
-      state.error = action.payload;
+      state.error = action.payload.data;
       toast.error(state.error || "Network Error");
     });
     builder.addCase(getBookBySearch.pending, (state) => {
@@ -101,5 +108,6 @@ const bookSlice = createSlice({
 });
 
 export default bookSlice.reducer;
+export const {setTrim} =bookSlice.actions
 
 export { createBook, deleteBook, updateBook, getBooks,getBookBySearch };

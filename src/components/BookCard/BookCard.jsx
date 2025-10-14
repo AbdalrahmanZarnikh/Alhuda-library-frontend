@@ -42,9 +42,9 @@ const BookCard = ({
         <div>
           رقم الرف:
           {stringNumberToArray?.map((ele, idx) => (
-            <span key={idx} className="font-semibold">
+            <span key={idx} className="font-semibold text-red-500">
               {" "}
-              {ele} |{" "}
+              {ele} <span className="text-black">|{" "}</span>
             </span>
           ))}
         </div>

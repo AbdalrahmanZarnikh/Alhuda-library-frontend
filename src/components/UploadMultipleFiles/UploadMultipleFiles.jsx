@@ -45,7 +45,7 @@ const UploadMultipleFiles = ({ form, records }) => {
   return (
     <div className="flex flex-col items-center gap-4 mt-4">
       <div
-        className="w-60 h-52 border-2 border-dashed border-gray-400 rounded-lg flex justify-center items-center cursor-pointer text-[#FF8D4C]"
+        className="w-60 h-52 border-2 border-dashed border-gray-400 rounded-lg flex justify-center items-center cursor-pointer text-primary"
         onClick={() => inputRef.current.click()}
       >
         <div className="flex flex-col items-center">
