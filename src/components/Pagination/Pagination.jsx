@@ -18,7 +18,7 @@ const Pagination = ({ currentPage, next, prev, getThunk }) => {
     <div className="flex justify-center items-center gap-10 md:gap-30 p-10">
       <button
         className={` text-white  p-4 cursor-pointer rounded-lg ${
-          next ? "bg-primary hover:bg-primary/20" : "bg-gray-500 "
+          next ? "bg-primary hover:bg-primary/60" : "bg-gray-500 "
         }`}
         onClick={handleClickNext}
       >
@@ -30,7 +30,7 @@ const Pagination = ({ currentPage, next, prev, getThunk }) => {
       </span>
       <button
         className={` text-white  p-4 cursor-pointer rounded-lg ${
-          prev ? "bg-primary hover:bg-primary/20" : "bg-gray-500 "
+          prev ? "bg-primary hover:bg-primary/60" : "bg-gray-500 "
         }`}
         onClick={handleClickPrev}
       >

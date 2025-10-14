@@ -48,7 +48,7 @@ const BookCard = ({
             </span>
           ))}
         </div>
-        <div className="text-green-600 font-bold">السعر: {price} ل.س</div>
+        <div className="text-green-600 font-bold text-center">السعر: {price} ل.س</div>
       </div>
 
       {/* الأزرار */}
