@@ -5,9 +5,9 @@
 }
 
 @theme {
-  --color-primary: #5c8374; /* أخضر مائل للأزرق */
-  --color-secondary: #fff4; /* لون ثانوي لطيف */
-  --color-card: blue;
+  --color-primary: #5c8374;
+  /* --color-primary: ; */
+  
 }
 
 @media print {

@@ -43,13 +43,13 @@ function Home() {
   }, [categories]);
 
   return (
-    <>
+    <div className="">
       {isLoading === "Pending" ? (
         <div className="flex justify-center items-center h-screen">
           <Lottie animationData={loading} className="w-10" />
         </div>
       ) : (
-        <div className="p-5 h-screen bg-secondary">
+        <div className=" p-5 h-fit">
           <PopUp
             msg={"هل أنت متأكد من الحذف ؟"}
             id={newId}
@@ -62,7 +62,7 @@ function Home() {
 
           {/*Start Filter Section */}
 
-          <div className="flex justify-between">
+          <div className="flex justify-between ">
             <FilterTable
               data={categories}
               setFunction={setCategory}
@@ -106,7 +106,7 @@ function Home() {
           )}
         </div>
       )}
-    </>
+    </div>
   );
 }
 

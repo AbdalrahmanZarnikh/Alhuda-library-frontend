@@ -133,7 +133,7 @@ const Form = () => {
     });
   };
   return (
-    <div className="p-10">
+    <div className="p-10 ">
       <ButtonReverse text={"رجوع"} />
 
       <FormLayout
