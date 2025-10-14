@@ -15,10 +15,10 @@ const PopUp = ({ msg, id, thunk, showVar,onClose }) => {
     if (pass == "3415") {
       await dispatch(thunk(id));
       if(found){
-        toast.success(`تم حذف بيانات ${found.name}`)
+        toast.success(`تم حذف بيانات ${found.title}`)
       }
       else{
-        toast.success(`تم حذف العمرة بنجاح`)
+        toast.success(`تم الحذف  بنجاح`)
       }
       
       onClose();
