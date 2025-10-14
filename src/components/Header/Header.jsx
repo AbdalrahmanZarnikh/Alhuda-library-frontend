@@ -2,7 +2,11 @@ import { useEffect, useRef, useState } from "react";
 import { BiSearch, BiMenu, BiX } from "react-icons/bi";
 import { useDispatch } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
-import {getBookBySearch, getBooks, setTrim} from "../../redux/slice/user/bookSlice";
+import {
+  getBookBySearch,
+  getBooks,
+  setTrim,
+} from "../../redux/slice/user/bookSlice";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -16,10 +20,10 @@ const Header = () => {
     const delayDebounce = setTimeout(() => {
       const trimmed = searchTerm.trim();
       if (trimmed !== "") {
-        dispatch(setTrim(trimmed))
+        dispatch(setTrim(trimmed));
         dispatch(getBookBySearch(searchTerm));
       } else if (trimmed === "" && location.pathname === "/") {
-        dispatch(setTrim(""))
+        dispatch(setTrim(""));
         dispatch(getBooks());
       }
     }, 500);
@@ -58,7 +62,7 @@ const Header = () => {
             }`
           }
         >
-         الكتب
+          الكتب
         </NavLink>
         <NavLink
           to="/add-book"
@@ -70,7 +74,7 @@ const Header = () => {
             }`
           }
         >
-           إضافة كتاب
+          إضافة كتاب
         </NavLink>
         <NavLink
           to="/add-category"
@@ -82,12 +86,16 @@ const Header = () => {
             }`
           }
         >
-         الأصناف
+          الأصناف
         </NavLink>
       </nav>
 
       {/* شريط البحث */}
-      <div className={`${location.pathname!=="/" && "hidden"} relative w-full md:w-1/3`}>
+      <div
+        className={`${
+          location.pathname !== "/" && "hidden"
+        } relative w-full md:w-1/3`}
+      >
         <input
           type="text"
           ref={input}
@@ -142,7 +150,7 @@ const Header = () => {
             }
             onClick={() => setMenuOpen(false)}
           >
-          الكتب
+            الكتب
           </NavLink>
           <NavLink
             to="/add-book"
@@ -159,7 +167,7 @@ const Header = () => {
           </NavLink>
           <NavLink
             to="/add-category"
-            className={({ isActive }) => 
+            className={({ isActive }) =>
               `rounded-lg p-3 w-full ${
                 isActive
                   ? "bg-black text-white"

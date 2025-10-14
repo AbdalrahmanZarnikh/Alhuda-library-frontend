@@ -9,7 +9,7 @@ const createBook = createAsyncThunk(
     try {
       const res = await axios.post("/api/books",data);
      
-      toast.success("تم التسجيل بنجاح")
+      toast.success("تمت الاضافة بنجاح")
 
       return res.data.data;
     } catch (error) {
