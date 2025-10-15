@@ -20,10 +20,7 @@ const BookCard = ({
   const stringNumberToArray = number?.split(",");
 
   return (
-    <div
-      className="relative rounded-2xl shadow-lg overflow-hidden w-full hover:scale-105 transition-transform cursor-pointer bg-primary"
-
-    >
+    <div className="relative rounded-2xl shadow-lg overflow-hidden w-full hover:scale-105 transition-transform cursor-pointer bg-primary">
       {/* طبقة شفافة فوق الخلفية */}
       <div className="absolute inset-0 bg-black/40 z-0"></div>
 
@@ -69,6 +66,14 @@ const BookCard = ({
           >
             تعديل
           </button>
+
+          {/* <button
+            onClick={() => navigate(`/edit-book/${id}`)}
+            className="bg-green-600 hover:bg-green-500 text-white px-3 py-1 rounded-md text-sm transition"
+          >
+            اضافة للبيع
+          </button> */}
+
           <button
             onClick={() => CheckPass(id)}
             className="bg-red-600 hover:bg-red-500 text-white px-3 py-1 rounded-md text-sm transition"
