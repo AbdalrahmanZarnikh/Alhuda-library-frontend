@@ -37,7 +37,7 @@ const BookCard = ({
         </div>
 
         {/* تفاصيل الكتاب */}
-        <div className="bg-white p-4 text-gray-700 space-y-2">
+        <div className="bg-green-100 p-4 text-gray-700 space-y-2">
           <div>
             التصنيف:{" "}
             <span className="font-semibold text-purple-700">
@@ -62,7 +62,7 @@ const BookCard = ({
         </div>
 
         {/* الأزرار */}
-        <div className="flex justify-between p-4 bg-gray-50 border-t">
+        <div className="flex justify-between p-4 bg-green-100 border-t">
           <button
             onClick={() => navigate(`/edit-book/${id}`)}
             className="bg-blue-600 hover:bg-blue-500 text-white px-3 py-1 rounded-md text-sm transition"
