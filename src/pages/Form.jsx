@@ -113,11 +113,12 @@ const Form = () => {
   const onSubmit = (data) => {
     const numberWithoutRepetition = [...new Set(data.number.split(","))].join();
 
-
     form.append("title", data.title);
     form.append("author", data.author);
     form.append("number", numberWithoutRepetition);
-    form.append("quantity", +data.quantity);
+    if (data.quantity) {
+      form.append("quantity", +data.quantity);
+    }
     form.append("price", +data.price);
 
     if (categories.length > 0) {

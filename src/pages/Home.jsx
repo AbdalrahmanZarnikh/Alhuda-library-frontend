@@ -49,7 +49,7 @@ function Home() {
           <Lottie animationData={loading} className="w-10" />
         </div>
       ) : (
-        <div className=" p-5 h-fit">
+        <div className="p-5 h-fit">
           <PopUp
             msg={"هل أنت متأكد من الحذف ؟"}
             id={newId}
