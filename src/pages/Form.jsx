@@ -130,7 +130,15 @@ const Form = () => {
       : createBook(form);
 
     dispatch(action).then(() => {
-      navigate("/");
+      // navigate("/");
+      reset({
+        title: "",
+        author: "",
+        quantity: "",
+        price: "",
+        number: "",
+        category: "",
+      });
     });
   };
   return (
