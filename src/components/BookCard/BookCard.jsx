@@ -1,7 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { FaBook } from "react-icons/fa";
-import { updateBook } from "../../redux/slice/user/bookSlice";
+import { updateBook ,deleteBook} from "../../redux/slice/user/bookSlice";
 import { useDispatch } from "react-redux";
+import { useEffect } from "react";
 
 const BookCard = ({
   id,
@@ -21,6 +22,12 @@ const BookCard = ({
     setNewId(id);
   };
   const stringNumberToArray = number?.split(",");
+
+  useEffect(() => {
+    if (quantity === 0) {
+      dispatch(deleteBook(id))
+    }
+  }, [quantity]);
 
   return (
     <div className="relative rounded-2xl shadow-lg overflow-hidden w-full hover:scale-105 transition-transform cursor-pointer bg-primary">
