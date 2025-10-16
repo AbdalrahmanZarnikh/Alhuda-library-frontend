@@ -1,16 +1,16 @@
 import { useDispatch } from "react-redux";
 
-const Pagination = ({ currentPage, next, prev, getThunk }) => {
+const Pagination = ({ currentPage, next, prev, getThunk ,category}) => {
   const dispatch = useDispatch();
 
   const handleClickNext = () => {
     if (next) {
-      dispatch(getThunk(next));
+      dispatch(getThunk({page:next,category:category}));
     }
   };
   const handleClickPrev = () => {
     if (prev) {
-      dispatch(getThunk(prev));
+      dispatch(getThunk({page:prev,category:category}));
     }
   };
 

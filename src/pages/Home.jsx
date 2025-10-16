@@ -28,19 +28,13 @@ function Home() {
     fn();
   }, [dispatch]);
 
-  const filteredData = books?.filter((ele) => {
-    if (category !== "الكل") {
-      return ele.category?.name === category;
-    } else {
-      return ele;
-    }
-  });
-
   useEffect(() => {
     if (categories?.length > 0) {
       setCategory("الكل");
     }
   }, [categories]);
+
+
 
   return (
     <div className="">
@@ -77,8 +71,8 @@ function Home() {
             </div>
           )}
           <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 w-full">
-            {filteredData.length > 0 &&
-              filteredData.map((book) => {
+            {books.length > 0 &&
+              books.map((book) => {
                 return (
                   <BookCard
                     id={book._id}
@@ -96,12 +90,13 @@ function Home() {
               })}
           </div>
 
-          {trim === "" && filteredData.length > 0 && (
+          {trim === "" &&  (
             <Pagination
               currentPage={paginationBooks?.currentPage}
               next={paginationBooks?.next}
               prev={paginationBooks?.prev}
               getThunk={getBooks}
+              category={category}
             />
           )}
         </div>

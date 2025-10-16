@@ -1,5 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { FaBook } from "react-icons/fa";
+import { updateBook } from "../../redux/slice/user/bookSlice";
+import { useDispatch } from "react-redux";
 
 const BookCard = ({
   id,
@@ -13,6 +15,7 @@ const BookCard = ({
   setNewId,
 }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const CheckPass = (id) => {
     setShow(true);
     setNewId(id);
@@ -59,24 +62,39 @@ const BookCard = ({
         </div>
 
         {/* الأزرار */}
-        <div className="flex justify-between p-4 bg-green-100 border-t">
+        <div className="flex justify-between p-4 bg-green-100 border-t ">
           <button
             onClick={() => navigate(`/edit-book/${id}`)}
-            className="bg-blue-600 hover:bg-blue-500 text-white px-3 py-1 rounded-md text-sm transition"
+            className="bg-blue-600 hover:bg-blue-500 text-white px-3 py-1 rounded-md text-sm transition cursor-pointer"
           >
             تعديل
           </button>
 
-          {/* <button
-            onClick={() => navigate(`/edit-book/${id}`)}
-            className="bg-green-600 hover:bg-green-500 text-white px-3 py-1 rounded-md text-sm transition"
+          <button
+            onClick={() => {
+              dispatch(
+                updateBook({ id: id, data: { quantity: quantity + 1 } })
+              );
+            }}
+            className="bg-green-600 hover:bg-green-500 text-white px-3 py-1 rounded-md text-xl transition cursor-pointer"
           >
-            اضافة للبيع
-          </button> */}
+            +
+          </button>
+
+          <button
+            onClick={() => {
+              dispatch(
+                updateBook({ id: id, data: { quantity: quantity - 1 } })
+              );
+            }}
+            className="bg-green-600 hover:bg-green-500 text-white px-3 py-1 rounded-md text-xl transition cursor-pointer"
+          >
+            -
+          </button>
 
           <button
             onClick={() => CheckPass(id)}
-            className="bg-red-600 hover:bg-red-500 text-white px-3 py-1 rounded-md text-sm transition"
+            className="bg-red-600 hover:bg-red-500 text-white px-3 py-1 rounded-md text-sm transition cursor-pointer"
           >
             حذف
           </button>

@@ -56,7 +56,7 @@ const bookSlice = createSlice({
     });
     builder.addCase(getBooks.rejected, (state, action) => {
       state.isLoading = "Fail";
-      state.error = action.payload.data;
+      state.error = action.payload?.data;
       toast.error(state.error || "Network Error");
     });
     builder.addCase(getBookBySearch.pending, (state) => {
