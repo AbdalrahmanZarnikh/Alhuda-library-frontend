@@ -65,7 +65,7 @@ function Home() {
           </div>
 
           {/* End Filter Section */}
-          {trim.length > 0 && filteredData.length == 0 && (
+          {trim.length > 0 && books.length == 0 && (
             <div className="flex justify-center items-center font-bold text-2xl w-full h-full bg-secondary overflow-hidden">
               الكتاب غير موجود
             </div>
@@ -90,7 +90,7 @@ function Home() {
               })}
           </div>
 
-          {trim === "" &&  (
+          {trim === "" && books.length > 0 && (
             <Pagination
               currentPage={paginationBooks?.currentPage}
               next={paginationBooks?.next}

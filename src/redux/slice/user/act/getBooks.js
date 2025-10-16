@@ -11,7 +11,7 @@ const getBooks = createAsyncThunk("Book/getBooks", async (data, thunkAPI) => {
       );
       return res.data;
     }
-    const res = await axios.get(`/api/books?page=${1}&limit=8`);
+    const res = await axios.get(`/api/books?page=${data?.page}&limit=8`);
     console.log(res.data)
     return res.data;
     
