@@ -75,7 +75,6 @@ const FormCategory = () => {
   return (
     <div className="p-10">
       <ButtonReverse text={"رجوع"} />
-
       <PopUp
         msg={"هل أنت متأكد من الحذف ؟"}
         id={newId}
@@ -84,18 +83,23 @@ const FormCategory = () => {
         onClose={() => setShow(false)}
       />
 
-      {isUpdateMode && (
-        <ButtonReverse text={"العودة لإنشاء صنف جديد "} to={"/add-category"} />
-      )}
+      <div className="hidden">
+        {isUpdateMode && (
+          <ButtonReverse
+            text={"العودة لإنشاء صنف جديد "}
+            to={"/add-category"}
+          />
+        )}
 
-      <FormLayout
-        id={id}
-        isLoading={isLoading}
-        Submit={handleSubmit(onSubmit)}
-        contentFormFilds={Fields}
-        multipleImages={true}
-        form={form}
-      />
+        <FormLayout
+          id={id}
+          isLoading={isLoading}
+          Submit={handleSubmit(onSubmit)}
+          contentFormFilds={Fields}
+          multipleImages={true}
+          form={form}
+        />
+      </div>
 
       {/* ✅✅ عرض الأصناف بطريقة جميلة كبطاقات */}
       <div className="mt-10">
@@ -106,9 +110,9 @@ const FormCategory = () => {
             categories.map((category) => (
               <div
                 key={category._id}
-                className="bg-white shadow-md rounded-xl overflow-hidden hover:shadow-lg transition-shadow duration-300"
+                className="bg-white shadow-md hover:scale-105 rounded-xl overflow-hidden hover:shadow-lg transition-all duration-300 cursor-pointer"
               >
-                <div className="h-40 bg-gray-100 flex items-center justify-center overflow-hidden">
+                <div className="h-60 bg-gray-100 flex items-center justify-center overflow-hidden">
                   <img
                     src={category.images[0]?.url || "/placeholder-category.png"}
                     alt={category.name}
@@ -121,16 +125,16 @@ const FormCategory = () => {
                     {category.name}
                   </h3>
 
-                  <div className="flex justify-center gap-4">
+                  <div className="flex justify-center gap-4 hidden">
                     <button
                       onClick={() => navigate(`/edit-category/${category._id}`)}
-                      className="text-blue-600 hover:text-blue-400 transition-colors"
+                      className="text-blue-600 hover:text-blue-400 transition-colors cursor-pointer"
                     >
                       <Edit2 size={20} />
                     </button>
                     <button
                       onClick={() => CheckPass(category._id)}
-                      className="text-red-600 hover:text-red-400 transition-colors"
+                      className="text-red-600 hover:text-red-400 transition-colors cursor-pointer"
                     >
                       <Trash2 size={20} />
                     </button>

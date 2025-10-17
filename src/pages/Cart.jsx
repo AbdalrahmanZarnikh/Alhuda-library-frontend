@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCart, confirm } from "../redux/slice/cart/cartSlice";
-import ItemCard from "../components/ItemCard/ItemCard";
 import ItemRow from "../components/ItemCard/ItemCard";
 
 const Cart = () => {
@@ -17,7 +16,7 @@ const Cart = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-6">
+    <div className="w-full mx-auto p-6">
       <h2 className="text-3xl font-bold text-center mb-8 text-gray-800">
         قائمة المبيعات
       </h2>
