@@ -1,8 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import { FaBook } from "react-icons/fa";
-import { updateBook ,deleteBook} from "../../redux/slice/user/bookSlice";
+import { updateBook, deleteBook } from "../../redux/slice/user/bookSlice";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
+import {addBook} from "../../redux/slice/cart/cartSlice"
 
 const BookCard = ({
   id,
@@ -25,7 +26,7 @@ const BookCard = ({
 
   useEffect(() => {
     if (quantity === 0) {
-      dispatch(deleteBook(id))
+      dispatch(deleteBook(id));
     }
   }, [quantity]);
 
@@ -75,6 +76,17 @@ const BookCard = ({
             className="bg-blue-600 hover:bg-blue-500 text-white px-3 py-1 rounded-md text-sm transition cursor-pointer"
           >
             تعديل
+          </button>
+
+          <button
+            onClick={() =>
+            {
+              dispatch(addBook({bookId:id}))
+            }
+            }
+            className="bg-blue-600 hover:bg-blue-500 text-white px-3 py-1 rounded-md text-sm transition cursor-pointer"
+          >
+            اضافة للمبيعات
           </button>
 
           <button

@@ -8,6 +8,7 @@ import Home from "./pages/Home.jsx";
 import Form from "./pages/Form.jsx";
 import FormCategory from "./pages/FormCategory.jsx";
 import { Toaster } from "react-hot-toast";
+import Cart from "./pages/Cart.jsx";
 
 createRoot(document.getElementById("root")).render(
   <BrowserRouter>
@@ -20,6 +21,7 @@ createRoot(document.getElementById("root")).render(
         <Route path="/edit-book/:id" element={<Form />} />  
         <Route path="/add-category" element={<FormCategory />} />
         <Route path="/edit-category/:id" element={<FormCategory />} />
+        <Route path="/cart" element={<Cart />} />
       </Routes>
     </Provider>
   </BrowserRouter>

@@ -51,7 +51,11 @@ const Header = () => {
       </button>
 
       {/* روابط التنقل (للحاسوب) */}
-      <nav className={`hidden md:flex ${location.pathname!=="/" && "md:m-auto"}  gap-4 text-lg font-bold`}>
+      <nav
+        className={`hidden md:flex ${
+          location.pathname !== "/" && "md:m-auto"
+        }  gap-4 text-lg font-bold`}
+      >
         <NavLink
           to="/"
           className={({ isActive }) =>
@@ -87,6 +91,18 @@ const Header = () => {
           }
         >
           الأصناف
+        </NavLink>
+        <NavLink
+          to="/cart"
+          className={({ isActive }) =>
+            `rounded-lg p-3 ${
+              isActive
+                ? "bg-black text-white"
+                : "bg-white hover:bg-white/50 hover:text-white"
+            }`
+          }
+        >
+          المبيعات
         </NavLink>
       </nav>
 
@@ -177,6 +193,20 @@ const Header = () => {
             onClick={() => setMenuOpen(false)}
           >
             الأصناف
+          </NavLink>
+
+          <NavLink
+            to="/cart"
+            className={({ isActive }) =>
+              `rounded-lg p-3 w-full ${
+                isActive
+                  ? "bg-black text-white"
+                  : "bg-white hover:bg-white/50 hover:text-white"
+              }`
+            }
+            onClick={() => setMenuOpen(false)}
+          >
+            المبيعات
           </NavLink>
           {/* <NavLink
             to="/pdf"
