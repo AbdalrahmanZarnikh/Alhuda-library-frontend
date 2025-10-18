@@ -1,16 +1,21 @@
 import { useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
 
 const Pagination = ({ currentPage, next, prev, getThunk, category }) => {
   const dispatch = useDispatch();
 
+  const { id } = useParams();
+
+  const newCategory = typeof id == "string" ? id : category;
+
   const handleClickNext = () => {
     if (next) {
-      dispatch(getThunk({ page: next, category: category }));
+      dispatch(getThunk({ page: next, category: newCategory }));
     }
   };
   const handleClickPrev = () => {
     if (prev) {
-      dispatch(getThunk({ page: prev, category: category }));
+      dispatch(getThunk({ page: prev, category: newCategory }));
     }
   };
 

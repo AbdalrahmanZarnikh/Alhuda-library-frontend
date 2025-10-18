@@ -13,6 +13,7 @@ import {
   getCategories,
   updateCategory,
 } from "../redux/slice/category/categorySlice";
+import CategoryCard from "../components/CategoryCard/CategoryCard";
 
 const FormCategory = () => {
   const dispatch = useDispatch();
@@ -108,39 +109,12 @@ const FormCategory = () => {
         <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {categories.length > 0 ? (
             categories.map((category) => (
-              <div
-                key={category._id}
-                className="bg-white shadow-md hover:scale-105 rounded-xl overflow-hidden hover:shadow-lg transition-all duration-300 cursor-pointer"
-              >
-                <div className="h-60 bg-gray-100 flex items-center justify-center overflow-hidden">
-                  <img
-                    src={category.images[0]?.url || "/placeholder-category.png"}
-                    alt={category.name}
-                    className="object-cover h-full w-full"
-                  />
-                </div>
-
-                <div className="p-4 flex flex-col justify-between">
-                  <h3 className="text-lg font-semibold text-gray-800 text-center mb-2">
-                    {category.name}
-                  </h3>
-
-                  <div className="flex justify-center gap-4 hidden">
-                    <button
-                      onClick={() => navigate(`/edit-category/${category._id}`)}
-                      className="text-blue-600 hover:text-blue-400 transition-colors cursor-pointer"
-                    >
-                      <Edit2 size={20} />
-                    </button>
-                    <button
-                      onClick={() => CheckPass(category._id)}
-                      className="text-red-600 hover:text-red-400 transition-colors cursor-pointer"
-                    >
-                      <Trash2 size={20} />
-                    </button>
-                  </div>
-                </div>
-              </div>
+              <CategoryCard
+                name={category.name}
+                id={category._id}
+                image={category?.images[0]?.url}
+                CheckPass={CheckPass}
+              />
             ))
           ) : (
             <p className="text-gray-600 text-center col-span-full">

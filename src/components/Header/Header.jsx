@@ -202,7 +202,7 @@ const Header = () => {
                 isActive
                   ? "bg-black text-white"
                   : "bg-white hover:bg-white/50 hover:text-white"
-              }`
+              } hidden`
             }
             onClick={() => setMenuOpen(false)}
           >

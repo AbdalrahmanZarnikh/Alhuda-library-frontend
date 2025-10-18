@@ -8,10 +8,12 @@ import { deleteBook, getBooks } from "../redux/slice/user/bookSlice";
 import { getCategories } from "../redux/slice/category/categorySlice";
 import BookCard from "../components/BookCard/BookCard";
 import Pagination from "../components/Pagination/Pagination";
+import { useParams } from "react-router-dom";
+import ButtonReverse from "../components/ButtonReverse/ButtonReverse";
 
 function Home() {
   const dispatch = useDispatch();
-
+  const { id } = useParams();
   const { isLoading, books, paginationBooks, trim } = useSelector(
     (state) => state.bookSlice
   );
@@ -19,10 +21,15 @@ function Home() {
   const [category, setCategory] = useState("");
   const [show, setShow] = useState(false);
   const [newId, setNewId] = useState("");
+  const isCategoryGet = typeof id === "string";
 
   useEffect(() => {
     const fn = async () => {
-      await dispatch(getBooks());
+      if (isCategoryGet) {
+        await dispatch(getBooks({ category: id }));
+      } else {
+        await dispatch(getBooks());
+      }
       await dispatch(getCategories());
     };
     fn();
@@ -33,8 +40,6 @@ function Home() {
       setCategory("الكل");
     }
   }, [categories]);
-
-
 
   return (
     <div className="">
@@ -54,15 +59,19 @@ function Home() {
             }}
           />
 
+          {isCategoryGet && <ButtonReverse text={"رجوع"} />}
+
           {/*Start Filter Section */}
 
-          <div className="flex justify-between ">
-            <FilterTable
-              data={categories}
-              setFunction={setCategory}
-              value={category}
-            />
-          </div>
+          {!isCategoryGet && (
+            <div className="flex justify-between ">
+              <FilterTable
+                data={categories}
+                setFunction={setCategory}
+                value={category}
+              />
+            </div>
+          )}
 
           {/* End Filter Section */}
           {trim.length > 0 && books.length == 0 && (
@@ -70,8 +79,8 @@ function Home() {
               الكتاب غير موجود
             </div>
           )}
-          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 w-full">
-            {books.length > 0 &&
+          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 w-full place-items-center">
+            {books.length > 0 ? (
               books.map((book) => {
                 return (
                   <BookCard
@@ -87,7 +96,12 @@ function Home() {
                     setShow={setShow}
                   />
                 );
-              })}
+              })
+            ) : (
+              <h1 className=" text-2xl font-bold place-content-center place-items-center">
+                لا يوجد كتب
+              </h1>
+            )}
           </div>
 
           {trim === "" && books.length > 0 && (

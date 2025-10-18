@@ -16,9 +16,10 @@ createRoot(document.getElementById("root")).render(
       <Toaster />
       <Header />
       <Routes>
-         <Route path="/" element={<Home />} />
-         <Route path="/add-book" element={<Form />} />
-        <Route path="/edit-book/:id" element={<Form />} />  
+        <Route path="/" element={<Home />} />
+        <Route path="/books/:id" element={<Home />} />
+        <Route path="/add-book" element={<Form />} />
+        <Route path="/edit-book/:id" element={<Form />} />
         <Route path="/add-category" element={<FormCategory />} />
         <Route path="/edit-category/:id" element={<FormCategory />} />
         <Route path="/cart" element={<Cart />} />

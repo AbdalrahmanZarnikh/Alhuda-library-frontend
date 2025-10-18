@@ -13,9 +13,9 @@ import toast from "react-hot-toast";
 // State
 const initialState = {
   books: [],
-  trim:"",
+  trim: "",
   isLoading: "Idle",
-  paginationBooks:null,
+  paginationBooks: null,
   error: null,
 };
 
@@ -23,9 +23,9 @@ const initialState = {
 const bookSlice = createSlice({
   name: "Book",
   reducers: {
-    setTrim:(state,action)=>{
-       state.trim=action.payload
-    }
+    setTrim: (state, action) => {
+      state.trim = action.payload;
+    },
   },
   initialState,
   extraReducers: (builder) => {
@@ -52,7 +52,7 @@ const bookSlice = createSlice({
       state.isLoading = "Success";
       state.error = null;
       state.books = action.payload.data;
-      state.paginationBooks=action.payload.pagination
+      state.paginationBooks = action.payload.pagination;
     });
     builder.addCase(getBooks.rejected, (state, action) => {
       state.isLoading = "Fail";
@@ -108,6 +108,6 @@ const bookSlice = createSlice({
 });
 
 export default bookSlice.reducer;
-export const {setTrim} =bookSlice.actions
+export const { setTrim } = bookSlice.actions;
 
-export { createBook, deleteBook, updateBook, getBooks,getBookBySearch };
+export { createBook, deleteBook, updateBook, getBooks, getBookBySearch};

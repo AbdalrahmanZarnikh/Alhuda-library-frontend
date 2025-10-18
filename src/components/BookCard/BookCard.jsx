@@ -1,9 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import { FaBook } from "react-icons/fa";
 import { updateBook, deleteBook } from "../../redux/slice/user/bookSlice";
-import { useDispatch } from "react-redux";
-import { useEffect } from "react";
-import {addBook} from "../../redux/slice/cart/cartSlice"
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { addBook } from "../../redux/slice/cart/cartSlice";
+import Lottie from "lottie-react";
+import loading from "../../utils/loading.json";
 
 const BookCard = ({
   id,
@@ -24,11 +26,20 @@ const BookCard = ({
   };
   const stringNumberToArray = number?.split(",");
 
+  const [Loading, setLoading] = useState(false);
+
   useEffect(() => {
     if (quantity === 0) {
       dispatch(deleteBook(id));
     }
   }, [quantity]);
+
+  const handleAddBook = (id) => {
+    setLoading(true);
+    dispatch(addBook({ bookId: id })).then(() => {
+      setLoading(false);
+    });
+  };
 
   return (
     <div className="relative rounded-2xl shadow-lg overflow-hidden w-full hover:scale-105 transition-transform cursor-pointer bg-primary">
@@ -79,14 +90,18 @@ const BookCard = ({
           </button>
 
           <button
-            onClick={() =>
-            {
-              dispatch(addBook({bookId:id}))
-            }
-            }
-            className="bg-blue-600 hover:bg-blue-500 text-white px-3 py-1 rounded-md text-sm transition cursor-pointer"
+            onClick={() => {
+              handleAddBook(id);
+            }}
+            className="bg-blue-600 hover:bg-blue-500 text-white px-3 py-1 rounded-md text-sm transition cursor-pointer hidden lg:block"
           >
-            اضافة للمبيعات
+            {Loading ? (
+              <div className="flex justify-center items-center">
+                <Lottie animationData={loading} className="w-7" />
+              </div>
+            ) : (
+              "اضافة للمبيعات"
+            )}
           </button>
 
           <button
