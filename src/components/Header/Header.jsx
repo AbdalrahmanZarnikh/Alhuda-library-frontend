@@ -90,7 +90,7 @@ const Header = () => {
             }`
           }
         >
-          الأصناف
+          الأقسام
         </NavLink>
         <NavLink
           to="/cart"
@@ -136,22 +136,6 @@ const Header = () => {
         />
       </div>
 
-      {/* روابط صغيرة على اليمين */}
-      {/* <div className="hidden md:flex gap-3 items-center">
-        <NavLink
-          to="/pdf"
-          className={({ isActive }) =>
-            `rounded-lg p-3 font-bold ${
-              isActive
-                ? "bg-black text-white"
-                : "bg-white hover:bg-white/50 hover:text-white"
-            }`
-          }
-        >
-          جوازات السفر
-        </NavLink>
-      </div> */}
-
       {/* قائمة الموبايل المنسدلة */}
       {menuOpen && (
         <div className="absolute top-full left-0 w-full bg-primary/70 shadow-md flex flex-col items-center text-center py-3 px-4 space-y-2 md:hidden z-50 ">
@@ -192,7 +176,7 @@ const Header = () => {
             }
             onClick={() => setMenuOpen(false)}
           >
-            الأصناف
+            الأقسام
           </NavLink>
 
           <NavLink
@@ -208,19 +192,6 @@ const Header = () => {
           >
             المبيعات
           </NavLink>
-          {/* <NavLink
-            to="/pdf"
-            className={({ isActive }) =>
-              `rounded-lg p-3 w-full ${
-                isActive
-                  ? "bg-black text-white"
-                  : "bg-white hover:bg-white/50 hover:text-white"
-              }`
-            }
-            onClick={() => setMenuOpen(false)}
-          >
-            جوازات السفر
-          </NavLink> */}
         </div>
       )}
     </header>

@@ -104,7 +104,9 @@ const FormCategory = () => {
 
       {/* ✅✅ عرض الأصناف بطريقة جميلة كبطاقات */}
       <div className="mt-10">
-        <h2 className="text-2xl font-bold mb-4 text-gray-800">جميع الأصناف</h2>
+        <h2 className="text-3xl font-bold text-center mb-8 text-gray-800">
+          جميع الأقسام
+        </h2>
 
         <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {categories.length > 0 ? (
@@ -118,7 +120,7 @@ const FormCategory = () => {
             ))
           ) : (
             <p className="text-gray-600 text-center col-span-full">
-              لا توجد أصناف حالياً
+              لا توجد أقسام حالياً
             </p>
           )}
         </div>

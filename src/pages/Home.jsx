@@ -74,11 +74,6 @@ function Home() {
           )}
 
           {/* End Filter Section */}
-          {trim.length > 0 && books.length == 0 && (
-            <div className="flex justify-center items-center font-bold text-2xl w-full h-full bg-secondary overflow-hidden">
-              الكتاب غير موجود
-            </div>
-          )}
           <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 w-full place-items-center">
             {books.length > 0 ? (
               books.map((book) => {
